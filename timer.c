@@ -10,7 +10,8 @@
 /*
 git clone --depth=1 https://github.com/raysan5/raylib.git
 cd raylib
-cmake . -DGRAPHICS=GRAPHICS_API_OPENGL_21 -DCMAKE_C_FLAGS_RELEASE="-s"
+cmake . -DGRAPHICS=GRAPHICS_API_OPENGL_21 -DCMAKE_C_FLAGS="-s" -DCMAKE_C_FLAGS_RELEASE="-s" -DBUILD_EXAMPLES="OFF"
+
 make
 cp raylib/libraylib.a ../
 cp raylib/include/raylib.h ../
@@ -18,7 +19,8 @@ cd ../
 gcc -s -o timer timer.c -I . -L . -l:libraylib.a -lm
 ./timer 
 */
-unsigned char ss1_ttf[] = {
+
+unsigned char font[] = {
   0xb5, 0x97, 0x5f, 0x6c, 0x14, 0xc7, 0x1d, 0xc7, 0x3f, 0xb3, 0xbb, 0x77,
   0x7b, 0x77, 0x06, 0x6c, 0x9f, 0x31, 0xc6, 0xae, 0x5b, 0x2f, 0xb7, 0x10,
   0x03, 0xe6, 0xf0, 0xd9, 0x6e, 0x7c, 0xfc, 0x31, 0x60, 0xcc, 0x19, 0x35,
@@ -204,17 +206,24 @@ unsigned char ss1_ttf[] = {
 //     emit(fd, EV_SYN, SYN_REPORT, 0);
 // }
 
+#define border 30
+#define shadow 10
+#define bl border
+#define bt border
+#define br border
+#define bb border
+
 int main(int argc, char* argv[]) {
 
     int i=1;
-    int j=20;
-    int sh=100;
-    int sw=225;
+    int j=19;
+    unsigned int sh = 100;
+    unsigned int sw = 225;
+    unsigned int fontsize = 100;
+    unsigned int newfontsize = 100;
     int sizeout;
     char *out;
-    printf("%d",sizeof(ss1_ttf));
-    out = DecompressData(ss1_ttf,0,&sizeout);
-
+    out = DecompressData(font,0,&sizeout);
     // FILE* fp;
 
     // struct uinput_setup usetup;
@@ -234,23 +243,36 @@ int main(int argc, char* argv[]) {
     char text[80];
  
     //SetTraceLogLevel(LOG_ERROR);
-    InitWindow(sw, sh, "Timer");
     SetTargetFPS(60);
+    sw=sw+bl+br;
+    InitWindow(sw, sh+bt+bb*2, "Timer");
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetWindowPosition(0,0);
     //SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
-    SetWindowState(FLAG_WINDOW_RESIZABLE);
     Font fontTtf = LoadFontFromMemory(".ttf",out,sizeout,sh,NULL,0);
-    textw = MeasureTextEx(fontTtf, TextFormat("%02d-%02d", i, j),sh,0).x;
+    textw = MeasureTextEx(fontTtf, TextFormat("%02d:%02d", 99,99),fontsize,0).x;
+    textw = textw + 30;
+    textw = textw + 30;
+    sh = sh + bt;
+    sh = sh + bb;
+    SetWindowSize(textw,sh);
+    printf("---------------------------------%d",textw);
+    float timerMaxValue = 1;
+    float timerCurrentValue = timerMaxValue;
 
     while (!WindowShouldClose()) {   
+        timerCurrentValue -= GetFrameTime();
+        if (timerCurrentValue < 0) {j--;timerCurrentValue = timerMaxValue;}
         if (IsKeyPressed(32)) goto close;
-        sh = GetScreenHeight();
-        sw = GetScreenWidth();
+        if (j<0) {i++;j=19;}
+        if (i>20) goto close;
+        sh = GetRenderHeight();
+        sw = GetRenderWidth();
+        newfontsize = sh + 60;
         BeginDrawing();
             ClearBackground((Color){ 30, 30, 30, 0 });
-            DrawTextEx(fontTtf,TextFormat("%02d-%02d", i, j), (Vector2){ 10.0f, 10.0f }, (float)fontTtf.baseSize, 0, BLACK);
-            DrawTextEx(fontTtf,TextFormat("%02d-%02d", i ,j), (Vector2){ 0.0f, 0.0f }, (float)fontTtf.baseSize, 0, GREEN);
-            SetWindowSize(sw, sh);
+            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i, j), (Vector2){ (float) br+shadow, (float) bt+shadow }, (float)newfontsize, 0, BLACK);
+            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i ,j), (Vector2){ (float) br, (float) bt }, (float)newfontsize, 0, GREEN);
         EndDrawing();
     }
         // sendkey_right(fd);
@@ -259,8 +281,7 @@ int main(int argc, char* argv[]) {
 close:
     UnloadFont(fontTtf); 
     CloseWindow();
+    return 0;
     // ioctl(fd, UI_DEV_DESTROY);
     // close(fd);
-
-    return 0;
 }
