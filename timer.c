@@ -7,19 +7,6 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-/*
-git clone --depth=1 https://github.com/raysan5/raylib.git
-cd raylib
-cmake . -DGRAPHICS=GRAPHICS_API_OPENGL_21 -DCMAKE_C_FLAGS="-s" -DCMAKE_C_FLAGS_RELEASE="-s" -DBUILD_EXAMPLES="OFF"
-
-make
-cp raylib/libraylib.a ../
-cp raylib/include/raylib.h ../
-cd ../
-gcc -s -o timer timer.c -I . -L . -l:libraylib.a -lm
-./timer 
-*/
-
 unsigned char font[] = {
   0xb5, 0x97, 0x5f, 0x6c, 0x14, 0xc7, 0x1d, 0xc7, 0x3f, 0xb3, 0xbb, 0x77,
   0x7b, 0x77, 0x06, 0x6c, 0x9f, 0x31, 0xc6, 0xae, 0x5b, 0x2f, 0xb7, 0x10,
