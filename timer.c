@@ -194,7 +194,7 @@ unsigned char font[] = {
 // }
 
 #define border 30
-#define shadow 10
+#define shadow 20
 #define bl border
 #define bt border
 #define br border
@@ -232,7 +232,7 @@ int main(int argc, char* argv[]) {
     //SetTraceLogLevel(LOG_ERROR);
     SetTargetFPS(60);
     sw=sw+bl+br;
-    InitWindow(sw, sh+bt+bb*2, "Timer");
+    InitWindow(sw, sh+bt+bb, "Timer");
     SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetWindowPosition(0,0);
     //SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
@@ -243,23 +243,31 @@ int main(int argc, char* argv[]) {
     sh = sh + bt;
     sh = sh + bb;
     SetWindowSize(textw,sh);
-    printf("---------------------------------%d",textw);
+
     float timerMaxValue = 1;
     float timerCurrentValue = timerMaxValue;
+    bool pause = false;
 
     while (!WindowShouldClose()) {   
+        if (IsKeyPressed(32)) pause = !pause;
         timerCurrentValue -= GetFrameTime();
-        if (timerCurrentValue < 0) {j--;timerCurrentValue = timerMaxValue;}
-        if (IsKeyPressed(32)) goto close;
+        if (timerCurrentValue < 0 | pause) {
+		if (pause) {
+			timerCurrentValue = timerMaxValue;
+		} else {
+			j--;
+			timerCurrentValue = timerMaxValue;
+		}
+	}
         if (j<0) {i++;j=19;}
         if (i>20) goto close;
         sh = GetRenderHeight();
         sw = GetRenderWidth();
-        newfontsize = sh + 60;
+        newfontsize = sh;
         BeginDrawing();
             ClearBackground((Color){ 30, 30, 30, 0 });
-            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i, j), (Vector2){ (float) br+shadow, (float) bt+shadow }, (float)newfontsize, 0, BLACK);
-            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i ,j), (Vector2){ (float) br, (float) bt }, (float)newfontsize, 0, GREEN);
+            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i, j), (Vector2){ (float) br+shadow, (float) bt+shadow }, (float)newfontsize-bl-br, 0, BLACK);
+            DrawTextEx(fontTtf,TextFormat("%02d:%02d", i ,j), (Vector2){ (float) br, (float) bt }, (float)newfontsize-bl-br, 0, GREEN);
         EndDrawing();
     }
         // sendkey_right(fd);
