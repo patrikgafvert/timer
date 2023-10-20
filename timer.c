@@ -90,9 +90,9 @@ int main(int argc, char* argv[]) {
     //SetTraceLogLevel(LOG_ERROR);
     SetTargetFPS(60);
     InitWindow(timerwindow.width, timerwindow.height, "Timer");
-    SetWindowState(FLAG_WINDOW_RESIZABLE);
+    //SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetWindowPosition(timerwindow.x,timerwindow.y);
-    //SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
+    SetWindowState(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
     Font fontTtf = LoadFontFromMemory(".ttf",out,sizeout,timerwindow.height,NULL,0);
     textw = MeasureTextEx(fontTtf, TextFormat("%02d-%02d", i,j),(float) timerwindow.fontsize,0).x;
 
