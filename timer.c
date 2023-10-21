@@ -90,7 +90,6 @@ int main(int argc, char* argv[]) {
     //SetTraceLogLevel(LOG_ERROR);
     SetTargetFPS(60);
     InitWindow(timerwindow.width, timerwindow.height, "Timer");
-    //SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetWindowPosition(timerwindow.x,timerwindow.y);
     SetWindowState(FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
     Font fontTtf = LoadFontFromMemory(".ttf",out,sizeout,timerwindow.height,NULL,0);
@@ -108,15 +107,16 @@ int main(int argc, char* argv[]) {
         if (IsKeyPressed(32)) pause = !pause;
         timerCurrentValue -= GetFrameTime();
         if (timerCurrentValue < 0 | pause) {
-		if (pause) {
-			timerCurrentValue = timerMaxValue;
-		} else {
-			j--;
-			timerCurrentValue = timerMaxValue;
-		}
-	}
+            if (pause) {
+                timerCurrentValue = timerMaxValue;
+            } else {
+                j--;
+                timerCurrentValue = timerMaxValue;
+            }
+	    }
         if (j<0) {i++;j=19;}
         if (i>20) goto close;
+
         timerwindow.height = GetRenderHeight();
         timerwindow.width = GetRenderWidth();
         timerwindow.shadowtextposx = timerwindow.rightborder + timerwindow.textshadow;
