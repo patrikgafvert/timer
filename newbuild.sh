@@ -3,8 +3,8 @@
 if [[ ! -d "raylib" ]]; then
 	git clone --depth=1 git@github.com:raysan5/raylib.git
 	cd raylib/src
-	make clean
-	for file in $(ls *.c);do gcc -I raylib/src/external/glfw/include -DPLATFORM_DESKTOP -c $file;done
+	rm -v *.o
+	for file in $(ls *.c);do gcc -I external/glfw/include/ -DPLATFORM_DESKTOP -c $file;done
 	ar crs libraylib.a *.o	
 	cp libraylib.a ../../
 	cp raylib.h ../../
