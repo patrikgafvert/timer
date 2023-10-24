@@ -8,6 +8,17 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
+#ifdef _WIN32
+#    define WIN32_LEAN_AND_MEAN
+#    define _WINUSER_
+#    define _WINGDI_
+#    define _IMM_
+#    define _WINCON_
+#    include <windows.h>
+#    include <direct.h>
+#endif
+//#    include <shellapi.h>
+
 // void emit(int fd, int type, int code, int val) {
 //    struct input_event ie;
 //    ie.type = type;
