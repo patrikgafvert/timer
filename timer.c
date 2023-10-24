@@ -98,7 +98,8 @@ int main(int argc, char* argv[]) {
     int textw;
     char text[80];
  
-    //SetTraceLogLevel(LOG_ERROR);
+    SetTraceLogLevel(LOG_ERROR);
+    
     SetTargetFPS(60);
     InitWindow(timerwindow.width, timerwindow.height, "Timer");
     SetWindowPosition(timerwindow.x,timerwindow.y);
@@ -111,10 +112,14 @@ int main(int argc, char* argv[]) {
     
     float timerMaxValue = 1;
     float timerCurrentValue = timerMaxValue;
+
     bool pause = false;
+    bool exit = false;
 
     SetWindowSize(timerwindow.width,timerwindow.height);
-    while (!WindowShouldClose()) {   
+
+    while (!exit) {   
+        if (IsKeyPressed(KEY_ESCAPE) || WindowShouldClose()) exit = true;
         if (IsKeyPressed(32)) pause = !pause;
         timerCurrentValue -= GetFrameTime();
         if (timerCurrentValue < 0 | pause) {
@@ -124,9 +129,10 @@ int main(int argc, char* argv[]) {
                 j--;
                 timerCurrentValue = timerMaxValue;
             }
-	    }
-        if (j<0) {i++;j=19;}
-        if (i>20) goto close;
+	}
+        
+        if (j<0) {i++;j = 19;}
+        if (i>20) exit = true;
 
         timerwindow.height = GetRenderHeight();
         timerwindow.width = GetRenderWidth();
@@ -142,7 +148,6 @@ int main(int argc, char* argv[]) {
         // sendkey_right(fd);
         // sendkey_nextsong(fd);
  
-close:
     UnloadFont(fontTtf); 
     CloseWindow();
     return 0;
