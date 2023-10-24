@@ -19,3 +19,5 @@ if [[ -d "raylib" ]]; then
 fi
 
 gcc -s -o timer timer.c -I. -L. -lraylib -lm && ./timer
+
+upx --best ./timer
