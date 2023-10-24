@@ -78,8 +78,6 @@ int main(int argc, char* argv[]) {
     int i=1;
     int j=19;
     int sizeout;
-    char *out;
-    out = DecompressData(font,0,&sizeout);
     // FILE* fp;
 
     // struct uinput_setup usetup;
@@ -99,8 +97,10 @@ int main(int argc, char* argv[]) {
     char text[80];
  
     SetTraceLogLevel(LOG_ERROR);
-    
     SetTargetFPS(60);
+    char *out;
+    out = DecompressData(font,0,&sizeout);
+    
     InitWindow(timerwindow.width, timerwindow.height, "Timer");
     SetWindowPosition(timerwindow.x,timerwindow.y);
     SetWindowState(FLAG_WINDOW_TOPMOST | FLAG_WINDOW_RESIZABLE);
