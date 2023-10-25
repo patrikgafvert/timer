@@ -1,5 +1,5 @@
 libraylib.a
+libwinraylib.a
 raylib
 timer
 timer.exe
-timer.o
