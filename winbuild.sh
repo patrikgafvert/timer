@@ -6,6 +6,7 @@ fi
 
 if [[ ! -f "libwinraylib.a" ]]; then
 	cd raylib/src
+	git pull
 	rm -v *.o
 	rm -v libraylib.a
 	for file in $(ls *.c);do x86_64-w64-mingw32-gcc -I external/glfw/include/ -DPLATFORM_DESKTOP -c $file;done
