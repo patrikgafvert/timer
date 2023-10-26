@@ -47,7 +47,6 @@ void sendkey_right(int fd) {
    emit(fd, EV_KEY, KEY_RIGHT, 0);
    emit(fd, EV_SYN, SYN_REPORT, 0);
 }
-
 #endif
 
 struct TimerWindow {
