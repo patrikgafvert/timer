@@ -1,29 +1,21 @@
-#include "font.h"
-#include "raylib.h"
 
-#ifdef __linux
-#include <linux/uinput.h>
-#endif
-
+#ifdef _linux
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#define _WINUSER_
-#define _WINGDI_
-#define _IMM_
-#define _WINCON_
-#include <direct.h>
-#include <windows.h>
+#include "font.h"
+#include "raylib.h"
+#include <linux/uinput.h>
+#elif defined _WIN32
+#include "font.h"
+#include "raylib.h"
+#include <stddef.h>
 #endif
-// #    include <shellapi.h>
 
-#ifdef __linux
+#ifdef _linux
 void emit(int fd, int type, int code, int val) {
   struct input_event ie;
   ie.type = type;
@@ -84,7 +76,7 @@ int main(int argc, char *argv[]) {
   int j = 19;
   int sizeout;
 
-#ifdef __linux
+#ifdef _linux
   FILE *fp;
   struct uinput_setup usetup;
   int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
@@ -144,7 +136,7 @@ int main(int argc, char *argv[]) {
     if (j < 0) {
       i++;
       j = 19;
-#ifdef __linux
+#ifdef _linux
       sendkey_right(fd);
       sendkey_nextsong(fd);
 #endif
@@ -169,7 +161,7 @@ int main(int argc, char *argv[]) {
   CloseWindow();
   return 0;
 
-#ifdef __linux
+#ifdef _linux
   ioctl(fd, UI_DEV_DESTROY);
   close(fd);
 #endif
