@@ -2,6 +2,8 @@
 OPENGLV="$(glxinfo | grep 'OpenGL version string' | cut -f4 -d' ' | tr -d '.')"
 echo OpenGL Version $OPENGLV
 
+git pull
+
 if [[ ! -d "raylib" ]]; then
 	git clone --depth=1 git@github.com:raysan5/raylib.git
 fi

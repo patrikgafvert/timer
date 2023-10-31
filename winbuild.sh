@@ -5,6 +5,8 @@ cc="${xc_prefix}gcc"
 
 echo Compiling with $cc
 
+git pull
+
 if [[ ! -d "raylib" ]]; then
 	git clone --depth=1 git@github.com:raysan5/raylib.git
 fi
