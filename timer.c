@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
   SetTraceLogLevel(LOG_ERROR);
   SetTargetFPS(60);
   char *out;
-  out = DecompressData(font, 0, &sizeout);
+  out = DecompressData(font, 4712, &sizeout);
 
   InitWindow(timerwindow.width, timerwindow.height, "Timer");
   SetWindowPosition(timerwindow.x, timerwindow.y);
