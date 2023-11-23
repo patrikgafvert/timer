@@ -95,10 +95,10 @@ int main(int argc, char *argv[]) {
   int textw;
   char text[80];
 
-  SetTraceLogLevel(LOG_ERROR);
+  //SetTraceLogLevel(LOG_ERROR);
   SetTargetFPS(60);
   char *out;
-  out = DecompressData(font, 4712, &sizeout);
+  out = DecompressData(font, sizeof(font), &sizeout);
 
   InitWindow(timerwindow.width, timerwindow.height, "Timer");
   SetWindowPosition(timerwindow.x, timerwindow.y);
