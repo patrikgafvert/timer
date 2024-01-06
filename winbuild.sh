@@ -12,8 +12,9 @@ if [[ ! -d "raylib" ]]; then
 fi
 
 if [[ ! -f "libraylib-win.a" ]]; then
-	cd raylib/src
+	cd raylib
 	git pull
+	cd raylib/src
 	rm -v *.o
 	rm -v libraylib.a
 	for file in $(ls *.c);do $cc -I /usr/x86_64-w64-mingw32/include/ -I external/glfw/include/ -DPLATFORM_DESKTOP -c $file;done
