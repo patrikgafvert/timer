@@ -9,8 +9,9 @@ if [[ ! -d "raylib" ]]; then
 fi
 
 if [[ ! -f "libraylib.a" ]]; then
-	cd raylib/src
+	cd raylib
 	git pull
+	cd raylib/src
 	rm -v *.o
 	rm -v libraylib.a
 	for file in $(ls *.c);do gcc -I external/glfw/include/ -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_$OPENGLV -c $file;done
