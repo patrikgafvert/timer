@@ -1,4 +1,5 @@
 #/bin/bash
+set -x
 OPENGLV="$(glxinfo | grep 'OpenGL version string' | cut -f4 -d' ' | tr -d '.')"
 echo OpenGL Version $OPENGLV
 
@@ -14,7 +15,7 @@ if [[ ! -f "libraylib.a" ]]; then
 	cd src
 	rm -v *.o
 	rm -v libraylib.a
-	for file in $(ls *.c);do gcc -I external/glfw/include/ -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_$OPENGLV -c $file;done
+	for file in $(ls *.c);do gcc -Iexternal/glfw/include -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_$OPENGLV -D_GLFW_X11 -c $file;done
 	ar crs libraylib.a *.o	
 	cp libraylib.a ../../
 	cp raylib.h ../../
