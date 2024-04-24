@@ -1,11 +1,16 @@
 # timer
-**Kalle**
 ## Kalle
+**Kalle**
 * List
 * Pelle
 * Ville
 * 
-```C
-alkjf lask djlas jlk jasd
-a sdfasdflkj lkjasdf
+```bash
+#!/bin/bash
+echo "Hello World"
+ls
+ls -al
+popd
 ```
+|-|-|-|
+|Kalle|Ville|Pelle|
