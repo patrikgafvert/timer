@@ -5,8 +5,13 @@
 * List
 * Pelle
 * Ville
-(1) Pelle
-(2) Ville
+- Pelle
+- Ville
+
+1. Kalle
+2. Pelle
+3. Olle
+I did ~~not~~ build a website.
 
 ```bash
 #!/bin/bash
