@@ -12,5 +12,8 @@ ls
 ls -al
 popd
 ```
-|---|---|---|
-|Kalle|Ville|Pelle|
+|Namn|Telefon|Mobil|
+|Kalle|123123|3452345|
+|Kalle|123123|3452345|
+|Kalle|123123|3452345|
+|Kalle|123123|3452345|
