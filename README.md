@@ -12,5 +12,5 @@ ls
 ls -al
 popd
 ```
-|-|-|-|
+|---|---|---|
 |Kalle|Ville|Pelle|
