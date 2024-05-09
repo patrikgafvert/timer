@@ -55,7 +55,7 @@ struct TimerWindow {
   int shadowtextposy;
 };
 
-int main(int argc, char *argv[]) {
+int main() {
 
   struct TimerWindow timerwindow = {
       .x = 0,
@@ -76,7 +76,6 @@ int main(int argc, char *argv[]) {
   int sizeout;
 
 #ifdef __linux__
-  FILE *fp;
   struct uinput_setup usetup;
   int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
   memset(&usetup, 0, sizeof(usetup));
@@ -93,11 +92,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   int textw;
-  char text[80];
 
   //SetTraceLogLevel(LOG_ERROR);
   SetTargetFPS(60);
-  char *out;
+  const unsigned char *out;
   out = DecompressData(font, sizeof(font), &sizeout);
 
   InitWindow(timerwindow.width, timerwindow.height, "Timer");
@@ -123,7 +121,7 @@ int main(int argc, char *argv[]) {
     if (IsKeyPressed(32))
       pause = !pause;
     timerCurrentValue -= GetFrameTime();
-    if (timerCurrentValue < 0 | pause) {
+    if ((timerCurrentValue < 0) | pause) {
       if (pause) {
         timerCurrentValue = timerMaxValue;
       } else {
