@@ -121,7 +121,7 @@ int main() {
     if (IsKeyPressed(32))
       pause = !pause;
     timerCurrentValue -= GetFrameTime();
-    if ((timerCurrentValue < 0) | pause) {
+    if ((timerCurrentValue < 0) || pause) {
       if (pause) {
         timerCurrentValue = timerMaxValue;
       } else {
