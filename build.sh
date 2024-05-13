@@ -18,6 +18,7 @@ if [[ ! -f "libraylib.a" ]]; then
 	ar crs libraylib.a *.o	
 	cp libraylib.a ../../
 	cp raylib.h ../../
+	cp raymath.h ../../
 	cd ../../
 fi
 
