@@ -1,5 +1,4 @@
 #/bin/bash
-set -xe
 OPENGLV="$(glxinfo | grep 'OpenGL version string' | cut -f4 -d' ' | tr -d '.')"
 echo OpenGL Version $OPENGLV
 
