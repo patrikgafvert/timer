@@ -1,5 +1,4 @@
 #/bin/bash
-
 xc_prefix="x86_64-w64-mingw32-"
 cc="${xc_prefix}gcc"
 
